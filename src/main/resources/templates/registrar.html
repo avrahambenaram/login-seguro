@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registrar</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-zinc-200 w-screen h-screen flex justify-center items-center">
+    <form class="bg-white rounded p-6 shadow-md w-1/5 flex flex-col items-center gap-4" th:action="@{/registrar}" method="POST">
+      <h2 class="text-lg font-semibold">Bem-vindo</h2>
+      <div th:replace="~{fragments/input :: input(
+          'text',
+          'username',
+          'Digite seu nome de usuário',
+          'Usuário'
+      )}"></div>
+      <div th:replace="~{fragments/input :: input(
+          'password',
+          'password',
+          'Digite a senha',
+          'Senha'
+      )}"></div>
+      <div th:replace="~{fragments/input :: input(
+          'password',
+          'confirmPassword',
+          'Confirme a senha',
+          'Confirme a senha'
+      )}"></div>
+      <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded">
+        <span>Registrar</span>
+      </button>
+      <a href="/login" class="cursor-pointer text-blue-600 hover:text-blue-800 transition-all">Já tem uma conta?</a>
+    </form>
+    <script>
+      (function(){
+        const form = document.querySelector('form');
+        const passwordInput = document.querySelector('input[name=password]');
+        const confirmPasswordInput = document.querySelector('input[name=confirmPassword]');
+        form.addEventListener('submit', evt => {
+          if (passwordInput.value != confirmPasswordInput.value) {
+            evt.preventDefault();
+            alert('As senhas devem ser iguais');
+          }
+        })
+      })()
+    </script>
+  </body>
+</html>

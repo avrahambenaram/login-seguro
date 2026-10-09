@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <label
+    th:fragment="input(type, name, placeholder, label)"
+    class="w-full flex flex-col gap-2"
+  >
+    <span th:text="${label}">Label</span>
+
+    <div class="w-full p-2 border border-zinc-400 rounded">
+      <input
+        class="outline-none w-full"
+        th:type="${type}"
+        th:name="${name}"
+        th:placeholder="${placeholder}"
+      >
+    </div>
+  </label>
+</body>
+</html>
