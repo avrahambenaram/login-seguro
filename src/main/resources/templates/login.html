@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-zinc-200 w-screen h-screen flex justify-center items-center">
+    <form class="bg-white rounded p-6 shadow-md w-1/5 flex flex-col items-center gap-4" th:action="@{/login}" method="POST">
+      <h2 class="text-lg font-semibold">Bem-vindo</h2>
+      <div th:if="${param.error}" class="w-full text-red-600 text-sm">Usuário ou senha inválidos</div>
+      <div th:if="${param.logout}" class="w-full text-green-600 text-sm">Você saiu com sucesso</div>
+      <div th:replace="~{fragments/input :: input(
+          'text',
+          'username',
+          'Digite seu nome de usuário',
+          'Usuário'
+      )}"></div>
+      <div th:replace="~{fragments/input :: input(
+          'password',
+          'password',
+          'Digite a senha',
+          'Senha'
+      )}"></div>
+      <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded">
+        <span>Logar</span>
+      </button>
+      <a href="/registrar" class="cursor-pointer text-blue-600 hover:text-blue-800 transition-all">Não tem uma conta?</a>
+    </form>
+  </body>
+</html>
