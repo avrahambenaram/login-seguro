@@ -7,21 +7,25 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body class="bg-zinc-200 w-screen h-screen flex justify-center items-center">
-    <form class="bg-white rounded p-6 shadow-md w-1/5 flex flex-col items-center gap-4" th:action="@{/login}" method="POST">
+    <form class="bg-white rounded p-6 shadow-md w-1/5 min-w-[320px] flex flex-col items-center gap-4" th:action="@{/login}" method="POST">
       <h2 class="text-lg font-semibold">Bem-vindo</h2>
       <div th:if="${param.error}" class="w-full text-red-600 text-sm">Usuário ou senha inválidos</div>
       <div th:if="${param.logout}" class="w-full text-green-600 text-sm">Você saiu com sucesso</div>
+      <div th:if="${param.verificado}" class="w-full text-green-600 text-sm">Conta verificada! Faça login.</div>
+      <div th:if="${sucesso}" class="w-full text-green-600 text-sm" th:text="${sucesso}">Sucesso</div>
       <div th:replace="~{fragments/input :: input(
           'text',
           'username',
           'Digite seu nome de usuário',
-          'Usuário'
+          'Usuário',
+          ''
       )}"></div>
       <div th:replace="~{fragments/input :: input(
           'password',
           'password',
           'Digite a senha',
-          'Senha'
+          'Senha',
+          ''
       )}"></div>
       <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded">
         <span>Logar</span>

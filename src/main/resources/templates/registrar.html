@@ -6,31 +6,48 @@
     <title>Registrar</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
-  <body class="bg-zinc-200 w-screen h-screen flex justify-center items-center">
-    <form class="bg-white rounded p-6 shadow-md w-1/5 flex flex-col items-center gap-4" th:action="@{/registrar}" method="POST">
-      <h2 class="text-lg font-semibold">Bem-vindo</h2>
+  <body class="bg-zinc-200 min-h-screen flex justify-center items-center p-4">
+    <form class="bg-white rounded-lg p-6 shadow-md w-full max-w-sm flex flex-col items-center gap-4" th:action="@{/registrar}" method="POST">
+      <div class="text-center">
+        <h2 class="text-lg font-semibold text-zinc-800">Criar conta</h2>
+        <p class="text-xs text-zinc-500 mt-1">Você receberá um código por e-mail para confirmar o cadastro.</p>
+      </div>
+
+      <div th:if="${erro}" class="w-full text-red-600 text-sm bg-red-50 border border-red-200 rounded p-2" th:text="${erro}">Erro</div>
+
       <div th:replace="~{fragments/input :: input(
           'text',
           'username',
           'Digite seu nome de usuário',
-          'Usuário'
+          'Usuário',
+          ${username} ?: ''
+      )}"></div>
+      <div th:replace="~{fragments/input :: input(
+          'email',
+          'email',
+          'Digite seu e-mail',
+          'E-mail',
+          ${email} ?: ''
       )}"></div>
       <div th:replace="~{fragments/input :: input(
           'password',
           'password',
-          'Digite a senha',
-          'Senha'
+          'Digite a senha (mín. 8 caracteres)',
+          'Senha',
+          ''
       )}"></div>
       <div th:replace="~{fragments/input :: input(
           'password',
           'confirmPassword',
           'Confirme a senha',
-          'Confirme a senha'
+          'Confirme a senha',
+          ''
       )}"></div>
-      <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded">
+
+      <button type="submit" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium transition">
         <span>Registrar</span>
       </button>
-      <a href="/login" class="cursor-pointer text-blue-600 hover:text-blue-800 transition-all">Já tem uma conta?</a>
+      <a href="/login" class="cursor-pointer text-blue-600 hover:text-blue-800 transition-all text-sm">Já tem uma conta?</a>
     </form>
     <script>
       (function(){

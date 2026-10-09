@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -45,8 +46,16 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/registrar", "/login", "/css/**", "/dist/**", "/plugins/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/").authenticated()
+                        // Público: cadastro (incluindo verificação) e recursos estáticos.
+                        .requestMatchers(
+                                "/registrar", "/registrar/**",
+                                "/verificar", "/verificar/**",
+                                "/login", "/logout", "/error",
+                                "/css/**", "/dist/**", "/plugins/**", "/js/**", "/images/**")
+                        .permitAll()
+                        // Apenas ADMIN pode editar/excluir usuários. MANAGER e USER só visualizam.
+                        .requestMatchers(HttpMethod.POST, "/usuarios/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
                 ).exceptionHandling(exception -> exception
                   .accessDeniedHandler((request, response, ex) ->
                     response.sendRedirect("/")
