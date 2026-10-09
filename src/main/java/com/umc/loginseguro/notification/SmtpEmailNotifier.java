@@ -15,11 +15,6 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
-/**
- * Implementação de produção: envia o código por SMTP.
- * Ativa quando app.mail.mode=smtp. As credenciais vêm das variáveis
- * MAIL_HOST / MAIL_PORT / MAIL_USERNAME / MAIL_PASSWORD.
- */
 @Component
 @ConditionalOnProperty(prefix = "app.mail", name = "mode", havingValue = "smtp")
 public class SmtpEmailNotifier implements EmailNotifier {

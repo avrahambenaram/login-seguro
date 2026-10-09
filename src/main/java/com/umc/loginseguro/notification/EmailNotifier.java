@@ -1,9 +1,5 @@
 package com.umc.loginseguro.notification;
 
-/**
- * Porta de saída para envio de e-mails transacionais.
- * Implementações concretas (console/SMTP) são escolhidas por configuração.
- */
 public interface EmailNotifier {
 
     /**
